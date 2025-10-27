@@ -1,9 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-// http://localhost:3001
+// http://localhost:3001 => home page
 router.get('/', (req, res)=> {
-    res.send('⚙️ Working...⚙️')
+    // res.send('⚙️ Working...⚙️')
+    res.render('pages/home', {
+        title: "Robin's jokes app",
+        name: "robin's jokes app!"
+    })
 })
 
 // express version 4 or lower (V5 is newest)
@@ -19,8 +23,13 @@ router.get('/', (req, res)=> {
 
 router.use('/jokes', require('./api/jokesRoutes'))
 
+// error handling
 router.use((req, res, next)=> {
-    res.status(404).send("404 Error. This page does not exist.")
+    res.status(404)
+    .render('pages/404', {
+        title: '404 Error',
+        name: '404 Error. This page does not exist...'
+    })
 })
 
 module.exports = router
