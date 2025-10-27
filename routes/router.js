@@ -1,13 +1,28 @@
 const express = require('express')
 const router = express.Router()
+const axios = require('axios')
+const getJoke = require('../helpers/getJoke')
 
 // http://localhost:3001 => home page
 router.get('/', (req, res)=> {
     // res.send('⚙️ Working...⚙️')
-    res.render('pages/home', {
-        title: "Robin's jokes app",
-        name: "robin's jokes app!"
-    })
+    const url = `https://api.sampleapis.com/jokes/goodJokes`
+
+    axios.get(url)
+        .then(resp => {
+            // console.log(resp.data)
+
+            // move to helper...
+            // const randomJoke = resp.data[Math.floor(Math.random() * resp.data.length)]
+
+            // console.log(randomJoke)
+            res.render('pages/home', {
+                title: "Robin's jokes app",
+                name: "robin's jokes app!",
+                joke: getJoke(resp.data)
+            })
+        })
+
 })
 
 // express version 4 or lower (V5 is newest)
