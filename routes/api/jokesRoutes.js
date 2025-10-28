@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const { paginationResults, buildJokeArray } = require('../../helpers/pagination')
 const PORT = process.env.PORT || 3001
 
 // http://localhost:3001/jokes
@@ -8,15 +9,7 @@ router.get('/', (req, res)=> {
     // res.send('This works')
     const url = `https://api.sampleapis.com/jokes/goodJokes`
     // pagination... 🤞🏼
-    const query = req.query ? req.query : {}
-
-    // get page & limit
-    let page = parseInt(query.page) || 1
-    let limit = parseInt(query.limit) || 12
-    console.log(`page: ${page}, limit: ${limit}`)
-
-    const startIdx = (page - 1) * limit
-    const endIdx = page * limit
+    const pageData = paginationResults(req)
 
     // will store jokes in here
     let jokesArr = []
@@ -24,16 +17,14 @@ router.get('/', (req, res)=> {
     axios.get(url)
         .then(resp => {
 
-            for (let i = startIdx; i < endIdx; i++) {
-                jokesArr = [...jokesArr, resp.data[i]]
-            }
-
-            console.log(jokesArr)
+            const jokeArrData = buildJokeArray(resp.data, jokesArr, pageData.startIdx, pageData.endIdx, pageData.page)
 
             res.render('pages/allJokes', {
-                title: 'All Jokes',
-                name: 'All Jokes',
-                data: jokesArr
+                title: 'All Jokes 🤣',
+                name: 'All Jokes 🤣',
+                data: jokeArrData.arr,
+                prev: jokeArrData.prev,
+                next: jokeArrData.next
             })
         })
 })
@@ -45,17 +36,25 @@ router.get('/type/:type', (req, res)=> {
 
     const type = req.params.type
     const url = `https://api.sampleapis.com/jokes/goodJokes`
+    const pageData = paginationResults(req)
 
     // we will filter through resp.data and store in typeArr
     let typeArr = []
 
+    let jokesArr = []
+
     axios.get(url)
         .then(resp => typeArr = resp.data.filter(item => item.type == type))
         .then(typeArr => {
+
+            const jokeArrData = buildJokeArray(typeArr, jokesArr, pageData.startIdx, pageData.endIdx, pageData.page)
+
             res.render('pages/allJokes', {
-                title: type,
-                name: `${type} jokes`,
-                data: typeArr
+                title: `${type} 🤣`,
+                name: `${type} jokes 🤣`,
+                data: jokeArrData.arr,
+                prev: jokeArrData.prev,
+                next: jokeArrData.next
             })
         })
 
