@@ -18,4 +18,27 @@ router.get('/', (req, res)=> {
         })
 })
 
+// joke type
+// localhost:3001/jokes/type/:type
+router.get('/type/:type', (req, res)=> {
+
+
+    const type = req.params.type
+    const url = `https://api.sampleapis.com/jokes/goodJokes`
+
+    // we will filter through resp.data and store in typeArr
+    let typeArr = []
+
+    axios.get(url)
+        .then(resp => typeArr = resp.data.filter(item => item.type == type))
+        .then(typeArr => {
+            res.render('pages/allJokes', {
+                title: type,
+                name: `${type} jokes`,
+                data: typeArr
+            })
+        })
+
+})
+
 module.exports = router
