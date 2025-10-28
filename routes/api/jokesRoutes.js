@@ -7,13 +7,33 @@ const PORT = process.env.PORT || 3001
 router.get('/', (req, res)=> {
     // res.send('This works')
     const url = `https://api.sampleapis.com/jokes/goodJokes`
+    // pagination... 🤞🏼
+    const query = req.query ? req.query : {}
 
-    axios.get(url) 
+    // get page & limit
+    let page = parseInt(query.page) || 1
+    let limit = parseInt(query.limit) || 12
+    console.log(`page: ${page}, limit: ${limit}`)
+
+    const startIdx = (page - 1) * limit
+    const endIdx = page * limit
+
+    // will store jokes in here
+    let jokesArr = []
+
+    axios.get(url)
         .then(resp => {
+
+            for (let i = startIdx; i < endIdx; i++) {
+                jokesArr = [...jokesArr, resp.data[i]]
+            }
+
+            console.log(jokesArr)
+
             res.render('pages/allJokes', {
                 title: 'All Jokes',
                 name: 'All Jokes',
-                data: resp.data
+                data: jokesArr
             })
         })
 })
