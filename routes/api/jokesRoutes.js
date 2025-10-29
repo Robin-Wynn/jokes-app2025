@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const { paginationResults, buildJokeArray } = require('../../helpers/pagination')
+const getGif = require('../../helpers/getGif')
 const PORT = process.env.PORT || 3001
 
 // http://localhost:3001/jokes
@@ -58,6 +59,26 @@ router.get('/type/:type', (req, res)=> {
             })
         })
 
+})
+
+// single joke
+router.get('/:id', (req, res)=> {
+
+    const id = req.params.id 
+
+    const url = `https://api.sampleapis.com/jokes/goodJokes/${id}`
+
+    axios.get(url)
+        .then(resp => {
+            const joke = resp.data
+            res.render('pages/singleJoke', {
+                title: joke.setup,
+                name: joke.setup,
+                punchline: joke.punchline,
+                gif: getGif()
+            })
+
+        })
 })
 
 module.exports = router
