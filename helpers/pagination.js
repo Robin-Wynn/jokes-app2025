@@ -16,8 +16,6 @@ const paginationResults =(obj)=> {
     results.startIdx = startIdx
     results.endIdx = endIdx
 
-    // build array
-
     return results
 
 }
@@ -36,7 +34,7 @@ const buildJokeArray =(arr, arr2, start, end, page)=> {
     const prev = page > 1 ? page - 1 : null
     const next = end >= arr.length ? null : page + 1
 
-    results.arr = arr
+    results.arr = arr2
     results.prev = prev
     results.next = next
     
