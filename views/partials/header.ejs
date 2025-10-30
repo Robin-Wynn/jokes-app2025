@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanalei+Fill&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <title><%= title %></title>
 </head>
 <body>
 
     <header class="header" id="header">
         <div class="container">
-            <h1 class="text-center text-capitalize"><%= name %></h1>
+            <h1 class="text-center text-capitalize h1-heading"><%= name %></h1>
             <nav class="nav justify-content-between justify-content-md-end">
-                <a href="/jokes" class="nav-link">all jokes</a>
-                <a href="/jokes/type/general" class="nav-link">general</a>
-                <a href="/jokes/type/knock-knock" class="nav-link">knock-knock</a>
-                <a href="/jokes/type/programming" class="nav-link">programming</a>
+                <a href="/jokes" class="nav-link top-link">home</a>
+                <a href="/jokes" class="nav-link top-link">all jokes</a>
+                <a href="/jokes/type/general" class="nav-link top-link">general</a>
+                <a href="/jokes/type/knock-knock" class="nav-link top-link">knock-knock</a>
+                <a href="/jokes/type/programming" class="nav-link top-link">programming</a>
             </nav>
         </div>
     </header>

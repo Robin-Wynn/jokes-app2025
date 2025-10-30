@@ -3,6 +3,8 @@ const router = express.Router()
 const axios = require('axios')
 const getJoke = require('../helpers/getJoke')
 
+router.use(express.static('public'))
+
 // http://localhost:3001 => home page
 router.get('/', (req, res)=> {
     // res.send('⚙️ Working...⚙️')
@@ -24,17 +26,6 @@ router.get('/', (req, res)=> {
         })
 
 })
-
-// express version 4 or lower (V5 is newest)
-// error handling
-// router.get('*', (req, res)=> {
-
-//     if (req.url == '/favicon.ico') {
-//         res.end()
-//     } else {
-//         res.send('<h1>404 Error. Page does not exist</h1>')
-//     }
-// })
 
 router.use('/jokes', require('./api/jokesRoutes'))
 

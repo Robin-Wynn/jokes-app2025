@@ -1,0 +1,47 @@
+* { box-sizing: border-box;}
+
+:root {
+    --color1: pink;
+    --color2: bisque;
+    --color3: lightseagreen;
+    --color4: maroon;
+    --font1: "Hanalei Fill", "system-ui";
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color2);
+}
+
+h2 {
+    font-family: var(--font1);
+    font-size: 64px;
+}
+
+.header {
+    padding: 15px;
+    background: linear-gradient(var(--color1), var(--color2));
+}
+
+.h1-heading {
+    font-family: var(--font1);
+    font-size: 48px;
+    text-shadow: 2px 2px 2px var(--color3);
+}
+
+.h2-joke {
+    font-size: 22px;
+}
+
+.main {
+
+}
+
+.top-link {
+    color: var(--color1);
+}
+
+.top-link:hover {
+    color: var(--color4);
+}
